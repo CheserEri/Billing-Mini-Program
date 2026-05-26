@@ -1,0 +1,307 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.phone { width: 320px; background: var(--color-background-secondary); border-radius: 20px; border: 0.5px solid var(--color-border-tertiary); overflow: hidden; margin: 0 auto; }
+.screen { display: none; }
+.screen.active { display: block; }
+.nav-tabs { display: flex; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.nav-tab { flex: 1; padding: 10px 4px; font-size: 11px; text-align: center; cursor: pointer; color: var(--color-text-secondary); border: none; background: transparent; }
+.nav-tab.active { color: var(--color-text-primary); font-weight: 500; border-bottom: 1.5px solid var(--color-text-primary); }
+.header { padding: 14px 14px 10px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; justify-content: space-between; }
+.header-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.header-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 1px; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; margin: 10px 12px 0; }
+.stat-row { display: flex; gap: 8px; margin: 10px 12px 0; }
+.stat { flex: 1; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px; }
+.stat-label { font-size: 11px; color: var(--color-text-secondary); }
+.stat-val { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-top: 3px; }
+.stat-val.red { color: #A32D2D; }
+.stat-val.green { color: #3B6D11; }
+.txn-list { padding: 0 12px; margin-top: 10px; }
+.txn-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.txn-item:last-child { border-bottom: none; }
+.txn-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.txn-info { flex: 1; }
+.txn-name { font-size: 13px; color: var(--color-text-primary); font-weight: 500; }
+.txn-meta { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.txn-amt { font-size: 13px; font-weight: 500; }
+.txn-amt.minus { color: #A32D2D; }
+.txn-amt.plus { color: #3B6D11; }
+.badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: #EAF3DE; color: #3B6D11; }
+.badge.food { background: #FAEEDA; color: #854F0B; }
+.badge.trans { background: #E6F1FB; color: #185FA5; }
+.badge.shop { background: #FBEAF0; color: #993556; }
+.badge.util { background: #EEEDFE; color: #534AB7; }
+.section-title { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); padding: 10px 14px 4px; letter-spacing: 0.03em; text-transform: uppercase; }
+.fab { position: absolute; bottom: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; background: var(--color-text-primary); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.fab i { color: var(--color-background-primary); font-size: 20px; }
+.screen-wrap { position: relative; min-height: 420px; background: var(--color-background-secondary); }
+
+.bar-chart { padding: 0 14px 10px; margin-top: 8px; }
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.bar-label { font-size: 11px; color: var(--color-text-secondary); width: 36px; flex-shrink: 0; }
+.bar-track { flex: 1; background: var(--color-background-secondary); border-radius: 3px; height: 14px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; }
+.bar-amt { font-size: 11px; color: var(--color-text-secondary); width: 44px; text-align: right; flex-shrink: 0; }
+
+.member-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.member-row:last-child { border-bottom: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+.avatar.a1 { background: #EEEDFE; color: #534AB7; }
+.avatar.a2 { background: #E1F5EE; color: #0F6E56; }
+.avatar.a3 { background: #FBEAF0; color: #993556; }
+.avatar.a4 { background: #FAEEDA; color: #854F0B; }
+.member-name { flex: 1; font-size: 13px; color: var(--color-text-primary); }
+.member-role { font-size: 11px; color: var(--color-text-secondary); }
+.progress-bar { height: 4px; background: var(--color-background-secondary); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 2px; }
+
+.ocr-box { margin: 10px 12px 0; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+.ocr-img { background: #B4B2A9; height: 90px; display: flex; align-items: center; justify-content: center; }
+.ocr-result { padding: 10px 12px; }
+.ocr-field { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 12px; }
+.ocr-field:last-child { border-bottom: none; }
+.ocr-key { color: var(--color-text-secondary); }
+.ocr-val { color: var(--color-text-primary); font-weight: 500; }
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.tag { font-size: 11px; padding: 3px 9px; border-radius: 10px; border: 0.5px solid var(--color-border-secondary); color: var(--color-text-secondary); cursor: pointer; }
+.tag.active { background: var(--color-text-primary); color: var(--color-background-primary); border-color: var(--color-text-primary); }
+.confirm-btn { display: block; width: calc(100% - 24px); margin: 10px 12px 12px; padding: 10px; background: var(--color-text-primary); color: var(--color-background-primary); border: none; border-radius: var(--border-radius-md); font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; }
+.budget-row { padding: 10px 14px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.budget-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+.budget-name { font-size: 13px; color: var(--color-text-primary); }
+.budget-nums { font-size: 11px; color: var(--color-text-secondary); }
+.budget-alert { font-size: 11px; color: #993C1D; margin-top: 3px; }
+</style>
+
+<h2 class="sr-only">财务记账小程序 UI 原型，包含首页账本、统计、拍照录入、成员管理四个页面</h2>
+
+<div style="padding: 12px 0;">
+<div class="phone">
+  <div style="background: var(--color-background-primary); padding: 10px 14px 8px; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid var(--color-border-tertiary);">
+    <div>
+      <div style="font-size: 13px; font-weight: 500; color: var(--color-text-primary);">家庭账本</div>
+      <div style="font-size: 10px; color: var(--color-text-secondary); margin-top: 1px;">4 位成员 · 已同步</div>
+    </div>
+    <div style="display: flex; gap: 12px;">
+      <i class="ti ti-bell" aria-hidden="true" style="font-size:18px; color: var(--color-text-secondary);"></i>
+      <i class="ti ti-settings" aria-hidden="true" style="font-size:18px; color: var(--color-text-secondary);"></i>
+    </div>
+  </div>
+
+  <div class="nav-tabs" id="mainNav">
+    <button class="nav-tab active" onclick="showTab('home')"><i class="ti ti-home" aria-hidden="true" style="display:block;font-size:16px;margin:0 auto 2px;"></i>账本</button>
+    <button class="nav-tab" onclick="showTab('stats')"><i class="ti ti-chart-bar" aria-hidden="true" style="display:block;font-size:16px;margin:0 auto 2px;"></i>统计</button>
+    <button class="nav-tab" onclick="showTab('ocr')"><i class="ti ti-camera" aria-hidden="true" style="display:block;font-size:16px;margin:0 auto 2px;"></i>拍票</button>
+    <button class="nav-tab" onclick="showTab('members')"><i class="ti ti-users" aria-hidden="true" style="display:block;font-size:16px;margin:0 auto 2px;"></i>成员</button>
+  </div>
+
+  <div class="screen-wrap">
+    <div class="screen active" id="screen-home">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-label">本月支出</div>
+          <div class="stat-val red">¥4,320</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">本月收入</div>
+          <div class="stat-val green">¥18,000</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">余额</div>
+          <div class="stat-val">¥13,680</div>
+        </div>
+      </div>
+      <div class="section-title">最近记录</div>
+      <div class="txn-list">
+        <div class="txn-item">
+          <div class="txn-icon" style="background:#FAEEDA;">🍜</div>
+          <div class="txn-info">
+            <div class="txn-name">大众点评 · 午餐 <span class="badge food">餐饮</span></div>
+            <div class="txn-meta">小红 · 照片识别 · 今天 12:34</div>
+          </div>
+          <div class="txn-amt minus">-¥68</div>
+        </div>
+        <div class="txn-item">
+          <div class="txn-icon" style="background:#E6F1FB;">🚇</div>
+          <div class="txn-info">
+            <div class="txn-name">地铁交通 <span class="badge trans">交通</span></div>
+            <div class="txn-meta">小明 · 手动录入 · 今天 09:10</div>
+          </div>
+          <div class="txn-amt minus">-¥7.20</div>
+        </div>
+        <div class="txn-item">
+          <div class="txn-icon" style="background:#FBEAF0;">🛍️</div>
+          <div class="txn-info">
+            <div class="txn-name">超市购物 <span class="badge shop">购物</span></div>
+            <div class="txn-meta">小明 · 照片识别 · 昨天 19:22</div>
+          </div>
+          <div class="txn-amt minus">-¥234</div>
+        </div>
+        <div class="txn-item">
+          <div class="txn-icon" style="background:#EEEDFE;">⚡</div>
+          <div class="txn-info">
+            <div class="txn-name">电费缴纳 <span class="badge util">水电</span></div>
+            <div class="txn-meta">小明 · 手动录入 · 5月24日</div>
+          </div>
+          <div class="txn-amt minus">-¥180</div>
+        </div>
+        <div class="txn-item">
+          <div class="txn-icon" style="background:#EAF3DE;">💰</div>
+          <div class="txn-info">
+            <div class="txn-name">工资到账 <span class="badge">收入</span></div>
+            <div class="txn-meta">小明 · 5月22日</div>
+          </div>
+          <div class="txn-amt plus">+¥18,000</div>
+        </div>
+      </div>
+      <button class="fab" title="添加记录" onclick="showTab('ocr')"><i class="ti ti-plus" aria-hidden="true"></i></button>
+    </div>
+
+    <div class="screen" id="screen-stats">
+      <div class="card" style="margin-top:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline;">
+          <div style="font-size:12px; color: var(--color-text-secondary);">5月总支出</div>
+          <div style="font-size:11px; color: var(--color-text-secondary);">预算 ¥5,000</div>
+        </div>
+        <div style="font-size:22px; font-weight:500; color: var(--color-text-primary); margin: 4px 0;">¥4,320</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:86%; background:#D85A30;"></div></div>
+        <div style="font-size:11px; color:#993C1D; margin-top:4px;">已使用 86%，还剩 ¥680</div>
+      </div>
+      <div class="section-title">分类支出</div>
+      <div class="bar-chart">
+        <div class="bar-row"><span class="bar-label">餐饮</span><div class="bar-track"><div class="bar-fill" style="width:72%; background:#EF9F27;"></div></div><span class="bar-amt">¥1,560</span></div>
+        <div class="bar-row"><span class="bar-label">购物</span><div class="bar-track"><div class="bar-fill" style="width:55%; background:#D4537E;"></div></div><span class="bar-amt">¥1,190</span></div>
+        <div class="bar-row"><span class="bar-label">水电</span><div class="bar-track"><div class="bar-fill" style="width:35%; background:#7F77DD;"></div></div><span class="bar-amt">¥760</span></div>
+        <div class="bar-row"><span class="bar-label">交通</span><div class="bar-track"><div class="bar-fill" style="width:18%; background:#378ADD;"></div></div><span class="bar-amt">¥390</span></div>
+        <div class="bar-row"><span class="bar-label">医疗</span><div class="bar-track"><div class="bar-fill" style="width:12%; background:#E24B4A;"></div></div><span class="bar-amt">¥260</span></div>
+        <div class="bar-row"><span class="bar-label">其他</span><div class="bar-track"><div class="bar-fill" style="width:8%; background:#888780;"></div></div><span class="bar-amt">¥160</span></div>
+      </div>
+      <div class="section-title">预算预警</div>
+      <div class="budget-row">
+        <div class="budget-header">
+          <span class="budget-name">餐饮</span>
+          <span class="budget-nums">¥1,560 / ¥2,000</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:78%; background:#EF9F27;"></div></div>
+      </div>
+      <div class="budget-row">
+        <div class="budget-header">
+          <span class="budget-name">购物</span>
+          <span class="budget-nums">¥1,190 / ¥1,000</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%; background:#E24B4A;"></div></div>
+        <div class="budget-alert"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:12px; vertical-align:-1px;"></i> 已超出预算 ¥190</div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-ocr">
+      <div class="ocr-box">
+        <div class="ocr-img">
+          <div style="text-align:center;">
+            <i class="ti ti-receipt" aria-hidden="true" style="font-size:32px; color: var(--color-background-primary); opacity:0.6;"></i>
+            <div style="font-size:11px; color: var(--color-background-primary); opacity:0.6; margin-top:4px;">小票预览</div>
+          </div>
+        </div>
+        <div style="padding: 8px 12px 4px; background: #EAF3DE; display:flex; align-items:center; gap:6px;">
+          <i class="ti ti-check" aria-hidden="true" style="font-size:14px; color:#3B6D11;"></i>
+          <span style="font-size:12px; color:#3B6D11; font-weight:500;">AI 识别完成</span>
+        </div>
+        <div class="ocr-result">
+          <div class="ocr-field"><span class="ocr-key">商家</span><span class="ocr-val">全家便利店</span></div>
+          <div class="ocr-field"><span class="ocr-key">金额</span><span class="ocr-val">¥68.50</span></div>
+          <div class="ocr-field"><span class="ocr-key">日期</span><span class="ocr-val">2026-05-26</span></div>
+          <div class="ocr-field"><span class="ocr-key">AI 建议类目</span><span class="ocr-val"><span class="badge food">餐饮</span></span></div>
+        </div>
+      </div>
+      <div style="padding: 8px 14px 4px; font-size:12px; color: var(--color-text-secondary);">修改类目</div>
+      <div class="tag-row" style="padding: 0 12px;">
+        <span class="tag active">餐饮</span>
+        <span class="tag" onclick="selectTag(this)">购物</span>
+        <span class="tag" onclick="selectTag(this)">交通</span>
+        <span class="tag" onclick="selectTag(this)">水电</span>
+        <span class="tag" onclick="selectTag(this)">医疗</span>
+        <span class="tag" onclick="selectTag(this)">娱乐</span>
+        <span class="tag" onclick="selectTag(this)">其他</span>
+      </div>
+      <div style="padding: 8px 14px 4px; font-size:12px; color: var(--color-text-secondary);">记到谁的名下</div>
+      <div class="tag-row" style="padding: 0 12px;">
+        <span class="tag active">小明</span>
+        <span class="tag" onclick="selectTag(this)">小红</span>
+        <span class="tag" onclick="selectTag(this)">共同</span>
+      </div>
+      <button class="confirm-btn">确认保存</button>
+      <div style="text-align:center; padding: 0 12px 12px;">
+        <button onclick="showTab('home')" style="background:transparent; border:none; font-size:12px; color: var(--color-text-secondary); cursor:pointer;">重新拍摄</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-members">
+      <div class="card">
+        <div style="font-size:12px; font-weight:500; color: var(--color-text-secondary); margin-bottom:8px;">共同账本成员</div>
+        <div class="member-row">
+          <div class="avatar a1">小明</div>
+          <div style="flex:1;">
+            <div style="font-size:13px; color: var(--color-text-primary);">王小明 <span style="font-size:10px; background:#EEEDFE; color:#534AB7; padding:1px 6px; border-radius:8px;">管理员</span></div>
+            <div class="progress-bar" style="margin-top:5px;"><div class="progress-fill" style="width:62%; background:#7F77DD;"></div></div>
+            <div style="font-size:10px; color: var(--color-text-secondary); margin-top:2px;">本月支出 ¥2,680 / 62%</div>
+          </div>
+        </div>
+        <div class="member-row">
+          <div class="avatar a2">小红</div>
+          <div style="flex:1;">
+            <div style="font-size:13px; color: var(--color-text-primary);">李小红 <span style="font-size:10px; background:#E1F5EE; color:#0F6E56; padding:1px 6px; border-radius:8px;">成员</span></div>
+            <div class="progress-bar" style="margin-top:5px;"><div class="progress-fill" style="width:29%; background:#1D9E75;"></div></div>
+            <div style="font-size:10px; color: var(--color-text-secondary); margin-top:2px;">本月支出 ¥1,250 / 29%</div>
+          </div>
+        </div>
+        <div class="member-row">
+          <div class="avatar a3">妈妈</div>
+          <div style="flex:1;">
+            <div style="font-size:13px; color: var(--color-text-primary);">王妈妈 <span style="font-size:10px; background:#F1EFE8; color:#5F5E5A; padding:1px 6px; border-radius:8px;">只读</span></div>
+            <div class="progress-bar" style="margin-top:5px;"><div class="progress-fill" style="width:9%; background:#888780;"></div></div>
+            <div style="font-size:10px; color: var(--color-text-secondary); margin-top:2px;">本月支出 ¥390 / 9%</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:10px;">
+        <div style="font-size:12px; font-weight:500; color: var(--color-text-secondary); margin-bottom:8px;">多账本切换</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:center; gap:10px; padding:8px; background: var(--color-background-secondary); border-radius: var(--border-radius-md);">
+            <i class="ti ti-home" aria-hidden="true" style="font-size:16px; color:#534AB7;"></i>
+            <div style="flex:1; font-size:13px; color: var(--color-text-primary);">家庭账本</div>
+            <i class="ti ti-check" aria-hidden="true" style="font-size:16px; color:#3B6D11;"></i>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; padding:8px;">
+            <i class="ti ti-briefcase" aria-hidden="true" style="font-size:16px; color: var(--color-text-secondary);"></i>
+            <div style="flex:1; font-size:13px; color: var(--color-text-secondary);">差旅报销</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; padding:8px; border-top: 0.5px solid var(--color-border-tertiary);">
+            <i class="ti ti-plus" aria-hidden="true" style="font-size:16px; color: var(--color-text-secondary);"></i>
+            <div style="flex:1; font-size:13px; color: var(--color-text-secondary);">新建账本</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin: 10px 12px;">
+        <button onclick="sendPrompt('请给我详细说明这个小程序的技术选型建议，包括前端框架、后端、数据库、OCR接口、云存储等')" style="width:100%; padding:9px; font-size:12px; background:transparent; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); color: var(--color-text-secondary); cursor:pointer;">查看技术选型建议 ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+function showTab(tab) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + tab).classList.add('active');
+  const tabs = ['home','stats','ocr','members'];
+  document.querySelectorAll('.nav-tab')[tabs.indexOf(tab)].classList.add('active');
+}
+function selectTag(el) {
+  const group = el.parentElement;
+  group.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+</script>

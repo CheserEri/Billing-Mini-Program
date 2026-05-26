@@ -1,0 +1,80 @@
+/* 全局样式 */
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+  font-size: 30rpx;
+  color: #333;
+  background-color: #F5F5F5;
+  box-sizing: border-box;
+}
+
+button {
+  background: initial;
+  padding: 0;
+  margin: 0;
+  line-height: inherit;
+}
+
+button::after {
+  border: none;
+}
+
+/* 颜色工具类 */
+.text-primary { color: #4A90D9; }
+.text-success { color: #52C41A; }
+.text-warning { color: #FAAD14; }
+.text-danger { color: #FF4D4F; }
+.text-gray { color: #999; }
+
+/* Flex 工具类 */
+.flex { display: flex; }
+.flex-row { display: flex; flex-direction: row; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-1 { flex: 1; }
+
+/* 间距 */
+.p-20 { padding: 20rpx; }
+.p-30 { padding: 30rpx; }
+.px-30 { padding-left: 30rpx; padding-right: 30rpx; }
+.mt-20 { margin-top: 20rpx; }
+.mt-30 { margin-top: 30rpx; }
+.mb-20 { margin-bottom: 20rpx; }
+
+/* 文字 */
+.text-center { text-align: center; }
+.text-lg { font-size: 40rpx; }
+.text-xl { font-size: 48rpx; }
+.text-sm { font-size: 28rpx; }
+.text-bold { font-weight: bold; }
+
+/* 圆角卡片 */
+.card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin: 20rpx 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 分割线 */
+.divider {
+  height: 1rpx;
+  background: #eee;
+  margin: 20rpx 0;
+}
+
+/* 主色按钮 */
+.btn-primary {
+  background: #4A90D9;
+  color: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx 40rpx;
+  text-align: center;
+  font-size: 34rpx;
+}
+
+.btn-primary:active {
+  opacity: 0.8;
+}

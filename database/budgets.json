@@ -1,0 +1,18 @@
+{
+  "collection": "budgets",
+  "description": "预算集合 - 存储每月各分类的预算上限",
+  "fields": {
+    "_id": "自动生成",
+    "_openid": "设置者 openid（自动写入）",
+    "ledgerId": "所属账本 ID（关联 ledgers._id）",
+    "categoryId": "分类 ID",
+    "categoryName": "分类名称（如：餐饮）",
+    "amount": "预算金额（数字）",
+    "year": "年份（如：2026）",
+    "month": "月份（1-12）"
+  },
+  "index": [
+    { "fieldPath": "ledgerId", "second": "year", "third": "month" }
+  ],
+  "permission": "所有用户可读，仅创建者可读写"
+}

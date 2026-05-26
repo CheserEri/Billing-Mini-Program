@@ -1,0 +1,23 @@
+{
+  "collection": "ledgers",
+  "description": "账本集合 - 存储账本信息、成员列表、邀请码",
+  "fields": {
+    "_id": "自动生成",
+    "_openid": "创建者 openid（自动写入）",
+    "name": "账本名称（如：家庭账本）",
+    "inviteCode": "6位邀请码（用于加入账本）",
+    "members": [
+      {
+        "openid": "成员 openid",
+        "name": "成员昵称",
+        "role": "admin | member | readonly"
+      }
+    ],
+    "createTime": "创建时间 ISO 字符串"
+  },
+  "index": [
+    { "fieldPath": "inviteCode", "unique": true },
+    { "fieldPath": "members.openid" }
+  ],
+  "permission": "所有用户可读，仅创建者可读写"
+}

@@ -1,0 +1,135 @@
+/* pages/members/index.wxss */
+
+.page-members {
+  padding-bottom: 30rpx;
+  background: #F5F5F5;
+  min-height: 100vh;
+}
+
+.loading-tip, .empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 60rpx 0;
+  font-size: 30rpx;
+}
+
+.card {
+  background: #fff;
+  border: 1rpx solid #E8E8E8;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin: 24rpx 28rpx 0;
+}
+
+.card-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+.member-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.member-row:last-child { border-bottom: none; }
+
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 10rpx;
+}
+
+.member-name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.role-badge {
+  font-size: 22rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 16rpx;
+}
+
+.progress-bar {
+  height: 10rpx;
+  background: #EAEAEA;
+  border-radius: 5rpx;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5rpx;
+  transition: width 0.3s;
+}
+
+.member-stats {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.ledger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.ledger-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
+  border-radius: 16rpx;
+}
+
+.ledger-row.active {
+  background: #F5F5F5;
+}
+
+.ledger-row.new-ledger {
+  border-top: 1rpx solid #E8E8E8;
+  padding-top: 24rpx;
+  margin-top: 8rpx;
+}
+
+.ledger-icon {
+  font-size: 36rpx;
+  width: 56rpx;
+  text-align: center;
+}
+
+.ledger-name {
+  flex: 1;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.ledger-check {
+  font-size: 32rpx;
+  color: #3B6D11;
+}

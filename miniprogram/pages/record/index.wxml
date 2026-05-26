@@ -1,0 +1,50 @@
+<!--pages/record/index.wxml-->
+<view class="page-record">
+
+  <!-- 收入/支出切换 -->
+  <view class="type-tabs">
+    <view class="type-tab {{type === 'expense' ? 'active' : ''}}" data-type="expense" bindtap="switchType">支出</view>
+    <view class="type-tab {{type === 'income' ? 'active' : ''}}" data-type="income" bindtap="switchType">收入</view>
+  </view>
+
+  <!-- 金额输入 -->
+  <view class="amount-section">
+    <text class="amount-symbol">¥</text>
+    <input class="amount-input" type="digit" placeholder="0.00" value="{{amount}}" bindinput="onAmountInput" />
+  </view>
+
+  <!-- 分类选择 -->
+  <view class="category-section">
+    <view class="section-label">选择分类</view>
+    <view class="category-grid">
+      <view
+        class="category-item {{selectedCategory.id === item.id ? 'selected' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="selectCategory"
+      >
+        <text class="category-icon">{{item.icon}}</text>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注和日期 -->
+  <view class="extra-section">
+    <view class="extra-row">
+      <text class="extra-label">备注</text>
+      <input class="extra-input" placeholder="添加备注..." value="{{note}}" bindinput="onNoteInput" />
+    </view>
+    <view class="extra-row">
+      <text class="extra-label">日期</text>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <text class="extra-value">{{date}}</text>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-btn" bindtap="submitRecord">保存</view>
+
+</view>

@@ -1,0 +1,60 @@
+<!--pages/ledger/index.wxml-->
+<view class="page-ledger">
+
+  <!-- 账本列表 -->
+  <view class="section-title">我的账本</view>
+
+  <view class="loading-tip" wx:if="{{loading}}">加载中...</view>
+
+  <view class="empty-tip" wx:if="{{!loading && ledgerList.length === 0}}">
+    暂无账本，点击下方创建
+  </view>
+
+  <view class="ledger-item {{currentLedgerId === item._id ? 'active' : ''}}"
+    wx:for="{{ledgerList}}" wx:key="_id"
+    data-id="{{item._id}}" bindtap="switchLedger">
+    <view class="ledger-info">
+      <view class="ledger-name">
+        {{item.name}}
+        <text class="current-tag" wx:if="{{currentLedgerId === item._id}}">当前</text>
+      </view>
+      <view class="ledger-meta">
+        <text class="member-count">{{item.members.length}} 人</text>
+        <text class="invite-code" data-code="{{item.inviteCode}}" catchtap="copyInviteCode">
+          邀请码: {{item.inviteCode}} 📋
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="actions">
+    <view class="action-btn create" bindtap="showCreateModal">创建账本</view>
+    <view class="action-btn join" bindtap="showJoinModal">加入账本</view>
+  </view>
+
+  <!-- 创建弹窗 -->
+  <view class="modal-mask" wx:if="{{showCreate}}" catchtouchmove="true" bindtap="hideCreateModal">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">创建账本</view>
+      <input class="modal-input" placeholder="输入账本名称" value="{{newLedgerName}}" bindinput="onLedgerNameInput" />
+      <view class="modal-actions">
+        <view class="modal-btn cancel" bindtap="hideCreateModal">取消</view>
+        <view class="modal-btn confirm" bindtap="createLedger">创建</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加入弹窗 -->
+  <view class="modal-mask" wx:if="{{showJoin}}" catchtouchmove="true" bindtap="hideJoinModal">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">加入账本</view>
+      <input class="modal-input" placeholder="输入6位邀请码" value="{{joinCode}}" bindinput="onJoinCodeInput" maxlength="6" />
+      <view class="modal-actions">
+        <view class="modal-btn cancel" bindtap="hideJoinModal">取消</view>
+        <view class="modal-btn confirm" bindtap="joinLedger">加入</view>
+      </view>
+    </view>
+  </view>
+
+</view>

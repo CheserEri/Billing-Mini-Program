@@ -1,0 +1,155 @@
+/* pages/ledger/index.wxss */
+
+.page-ledger {
+  padding: 30rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.loading-tip, .empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 60rpx 0;
+  font-size: 30rpx;
+}
+
+/* 账本列表项 */
+.ledger-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  border: 2rpx solid transparent;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.ledger-item.active {
+  border-color: #4A90D9;
+  background: #F0F7FF;
+}
+
+.ledger-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.current-tag {
+  font-size: 24rpx;
+  color: #4A90D9;
+  background: #E8F0FE;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  margin-left: 12rpx;
+  font-weight: normal;
+}
+
+.ledger-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.member-count {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.invite-code {
+  font-size: 28rpx;
+  color: #4A90D9;
+}
+
+/* 操作按钮 */
+.actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+.action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 32rpx;
+  border-radius: 20rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+}
+
+.action-btn.create {
+  background: #4A90D9;
+  color: #fff;
+}
+
+.action-btn.join {
+  background: #fff;
+  color: #4A90D9;
+  border: 2rpx solid #4A90D9;
+}
+
+/* 弹窗 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  width: 80%;
+  max-width: 600rpx;
+}
+
+.modal-title {
+  font-size: 38rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.modal-input {
+  border: 2rpx solid #E0E0E0;
+  border-radius: 12rpx;
+  padding: 24rpx 28rpx;
+  font-size: 32rpx;
+  margin-bottom: 30rpx;
+  background: #fff;
+  color: #333;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+}
+
+.modal-btn.cancel {
+  background: #F5F5F5;
+  color: #666;
+}
+
+.modal-btn.confirm {
+  background: #4A90D9;
+  color: #fff;
+}

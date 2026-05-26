@@ -1,0 +1,154 @@
+/* pages/record/index.wxss */
+
+.page-record {
+  padding: 0 0 40rpx;
+}
+
+/* 收支切换 */
+.type-tabs {
+  display: flex;
+  background: #fff;
+  padding: 10rpx 30rpx;
+}
+
+.type-tab {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 34rpx;
+  color: #666;
+  position: relative;
+}
+
+.type-tab.active {
+  color: #4A90D9;
+  font-weight: bold;
+}
+
+.type-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  right: 30%;
+  height: 4rpx;
+  background: #4A90D9;
+  border-radius: 2rpx;
+}
+
+/* 金额输入 */
+.amount-section {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 40rpx 30rpx;
+  margin-top: 2rpx;
+}
+
+.amount-symbol {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-right: 10rpx;
+}
+
+.amount-input {
+  flex: 1;
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 分类选择 */
+.category-section {
+  background: #fff;
+  padding: 30rpx;
+  margin-top: 20rpx;
+}
+
+.section-label {
+  font-size: 30rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category-item {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0;
+  border-radius: 12rpx;
+}
+
+.category-item.selected {
+  background: #E8F0FE;
+}
+
+.category-icon {
+  font-size: 44rpx;
+  margin-bottom: 8rpx;
+}
+
+.category-name {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 备注和日期 */
+.extra-section {
+  background: #fff;
+  margin-top: 20rpx;
+  padding: 0 30rpx;
+}
+
+.extra-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.extra-row:last-child {
+  border-bottom: none;
+}
+
+.extra-label {
+  font-size: 32rpx;
+  color: #333;
+  width: 100rpx;
+}
+
+.extra-input {
+  flex: 1;
+  font-size: 32rpx;
+  text-align: right;
+}
+
+.extra-value {
+  flex: 1;
+  font-size: 32rpx;
+  text-align: right;
+  color: #666;
+}
+
+/* 提交按钮 */
+.submit-btn {
+  margin: 40rpx 30rpx 0;
+  background: #4A90D9;
+  color: #fff;
+  text-align: center;
+  padding: 32rpx;
+  border-radius: 20rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.submit-btn:active {
+  opacity: 0.8;
+}

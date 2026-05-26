@@ -1,0 +1,67 @@
+<!--pages/home/index.wxml-->
+<view class="page-home">
+
+  <!-- 顶部 header -->
+  <view class="header">
+    <view class="header-left">
+      <view class="header-title">{{ledgerName}}</view>
+      <view class="header-sub">{{memberCount}} 位成员 · 已同步</view>
+    </view>
+    <view class="header-right">
+      <view class="header-icon" bindtap="goToRecord">
+        <text class="icon-text">+</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 数据库状态提示 -->
+  <view class="db-status" wx:if="{{dbStatus}}">
+    <text>{{dbStatus}}</text>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stat-row">
+    <view class="stat">
+      <view class="stat-label">本月支出</view>
+      <view class="stat-val red">¥{{totalExpense}}</view>
+    </view>
+    <view class="stat">
+      <view class="stat-label">本月收入</view>
+      <view class="stat-val green">¥{{totalIncome}}</view>
+    </view>
+    <view class="stat">
+      <view class="stat-label">余额</view>
+      <view class="stat-val">¥{{balance}}</view>
+    </view>
+  </view>
+
+  <!-- 最近记录 -->
+  <view class="section-title">最近记录</view>
+
+  <view class="loading-tip" wx:if="{{loading}}">加载中...</view>
+  <view class="empty-tip" wx:if="{{!loading && recentRecords.length === 0}}">
+    暂无记录，点击 + 开始记账
+  </view>
+
+  <view class="txn-list">
+    <view class="txn-item" wx:for="{{recentRecords}}" wx:key="_id">
+      <view class="txn-icon txn-icon-{{item.badgeClass || 'default'}}">{{item.categoryIcon}}</view>
+      <view class="txn-info">
+        <view class="txn-name">
+          {{item.categoryName}}
+          <text class="badge badge-{{item.badgeClass || ''}}">{{item.categoryName}}</text>
+        </view>
+        <view class="txn-meta">{{item.creatorName || '我'}} · {{item.methodText}} · {{item.timeText}}</view>
+      </view>
+      <view class="txn-amt {{item.type === 'expense' ? 'minus' : 'plus'}}">
+        {{item.type === 'expense' ? '-' : '+'}}¥{{item.amountText}}
+      </view>
+    </view>
+  </view>
+
+  <!-- FAB 按钮 -->
+  <view class="fab" bindtap="goToOcr">
+    <text class="fab-icon">+</text>
+  </view>
+
+</view>

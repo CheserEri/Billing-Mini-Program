@@ -1,0 +1,26 @@
+{
+  "collection": "transactions",
+  "description": "交易记录集合 - 存储每笔收支记录",
+  "fields": {
+    "_id": "自动生成",
+    "_openid": "录入者 openid（自动写入）",
+    "ledgerId": "所属账本 ID（关联 ledgers._id）",
+    "type": "expense | income",
+    "amount": "金额（数字，最多2位小数）",
+    "categoryId": "分类 ID",
+    "categoryName": "分类名称（如：餐饮、交通）",
+    "categoryIcon": "分类图标 emoji（如：🍜、🚗）",
+    "note": "备注信息",
+    "date": "日期（格式：2026-05-26）",
+    "method": "录入方式：manual（手动）| ocr（拍照识别）",
+    "creatorName": "录入人昵称",
+    "assignTo": "记到谁名下的 openid",
+    "createTime": "创建时间 ISO 字符串"
+  },
+  "index": [
+    { "fieldPath": "ledgerId" },
+    { "fieldPath": "date" },
+    { "fieldPath": "ledgerId", "second": "date" }
+  ],
+  "permission": "所有用户可读，仅创建者可读写"
+}

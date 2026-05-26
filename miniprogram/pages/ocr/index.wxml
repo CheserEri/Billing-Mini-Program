@@ -1,0 +1,71 @@
+<!--pages/ocr/index.wxml-->
+<view class="page-ocr">
+
+  <!-- 未拍照状态 -->
+  <view class="upload-area" wx:if="{{!hasImage}}" bindtap="takePhoto">
+    <text class="upload-icon">🧾</text>
+    <text class="upload-text">点击拍照或选择小票</text>
+    <text class="upload-hint">支持小票、发票、收据</text>
+  </view>
+
+  <!-- 已拍照 -->
+  <view wx:if="{{hasImage}}">
+    <view class="preview-box">
+      <image class="preview-img" src="{{imagePath}}" mode="aspectFill" />
+    </view>
+
+    <view class="status-bar recognizing" wx:if="{{recognizing}}">
+      <text>⏳ AI 识别中...</text>
+    </view>
+    <view class="status-bar success" wx:if="{{recognized}}">
+      <text>✓ AI 识别完成</text>
+    </view>
+
+    <view class="result-card" wx:if="{{recognized && ocrResult}}">
+      <view class="result-row">
+        <text class="result-key">商家</text>
+        <text class="result-val">{{ocrResult.merchant}}</text>
+      </view>
+      <view class="result-row">
+        <text class="result-key">金额</text>
+        <text class="result-val amount">¥{{ocrResult.amountText}}</text>
+      </view>
+      <view class="result-row">
+        <text class="result-key">日期</text>
+        <text class="result-val">{{ocrResult.date}}</text>
+      </view>
+      <view class="result-row">
+        <text class="result-key">AI 建议类目</text>
+        <text class="result-val">
+          <text class="badge badge-{{ocrResult.badgeClass}}">{{ocrResult.categoryName}}</text>
+        </text>
+      </view>
+    </view>
+
+    <view class="section-label" wx:if="{{recognized}}">修改类目</view>
+    <view class="tag-row" wx:if="{{recognized}}">
+      <view
+        class="tag {{selectedCategoryId === item.id ? 'active' : ''}}"
+        wx:for="{{categories}}" wx:key="id"
+        data-id="{{item.id}}" bindtap="selectCategory"
+      >{{item.name}}</view>
+    </view>
+
+    <view class="section-label" wx:if="{{recognized && members.length > 0}}">记到谁的名下</view>
+    <view class="tag-row" wx:if="{{recognized && members.length > 0}}">
+      <view
+        class="tag {{selectedMember === item.openid ? 'active' : ''}}"
+        wx:for="{{members}}" wx:key="openid"
+        data-id="{{item.openid}}" bindtap="selectMember"
+      >{{item.name}}</view>
+    </view>
+
+    <view class="confirm-btn" wx:if="{{recognized}}" bindtap="confirmSave">确认保存</view>
+    <view class="retake-btn" bindtap="retake">重新拍摄</view>
+  </view>
+
+  <view class="manual-entry" wx:if="{{!hasImage}}" bindtap="goToManual">
+    <text>手动记账 ›</text>
+  </view>
+
+</view>

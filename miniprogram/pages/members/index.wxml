@@ -1,0 +1,45 @@
+<!--pages/members/index.wxml-->
+<view class="page-members">
+
+  <view class="loading-tip" wx:if="{{loading}}">加载中...</view>
+
+  <!-- 成员列表卡片 -->
+  <view class="card" wx:if="{{!loading}}">
+    <view class="card-title">共同账本成员</view>
+    <view class="empty-tip" wx:if="{{members.length === 0}}">暂无成员数据</view>
+    <view class="member-row" wx:for="{{members}}" wx:key="openid">
+      <view class="avatar" style="background: {{item.avatarBg}}; color: {{item.avatarColor}};">{{item.avatarText}}</view>
+      <view class="member-info">
+        <view class="member-name-row">
+          <text class="member-name">{{item.name}}</text>
+          <text class="role-badge" style="background: {{item.roleBg}}; color: {{item.roleColor}};">{{item.roleText}}</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{item.percent}}%; background: {{item.barColor}};"></view>
+        </view>
+        <view class="member-stats">本月支出 ¥{{item.spentText}} / {{item.percent}}%</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 多账本切换卡片 -->
+  <view class="card" wx:if="{{!loading}}">
+    <view class="card-title">多账本切换</view>
+    <view class="ledger-list">
+      <view
+        class="ledger-row {{currentLedgerId === item._id ? 'active' : ''}}"
+        wx:for="{{ledgerList}}" wx:key="_id"
+        data-id="{{item._id}}" bindtap="switchLedger"
+      >
+        <text class="ledger-icon">{{currentLedgerId === item._id ? '🏠' : '📁'}}</text>
+        <text class="ledger-name">{{item.name}}</text>
+        <text class="ledger-check" wx:if="{{currentLedgerId === item._id}}">✓</text>
+      </view>
+      <view class="ledger-row new-ledger" bindtap="createLedger">
+        <text class="ledger-icon">+</text>
+        <text class="ledger-name">新建账本</text>
+      </view>
+    </view>
+  </view>
+
+</view>
